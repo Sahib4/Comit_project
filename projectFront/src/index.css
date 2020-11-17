@@ -239,8 +239,11 @@ img.large{
   color: #a02020;
   background-color: #ffe0e0;
 }
+.loading {
+  display: block !important;
+}
 
-/*Alert*/
+/*form*/
 
 .form {
   max-width: 60rem;
