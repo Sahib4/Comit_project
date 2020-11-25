@@ -62,7 +62,7 @@ const signoutHandler = () => {
           <Route path="/register" component={RegisterScreen} exact></Route>
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
           <Route path="/payment" component={PaymentMethodScreen}></Route>
-          <Route path="/placeOrder" component={PlaceOrderScreen}></Route>
+          <Route path="/placeorder" component={PlaceOrderScreen}></Route>
           <Route path="/" component = {HomeScreen} exact></Route>
           
         </main>
