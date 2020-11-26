@@ -3,8 +3,8 @@ import React from 'react'
 export default function Messagebox(props) {
     return (
         <div className = {`alert alert-${props.variant || 'info'}`}>
-            {props.childern} 
+            {props.children} 
 
         </div>
-    )
+    );
 }
