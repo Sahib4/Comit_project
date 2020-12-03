@@ -16,6 +16,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import PrivateRoute from './componenets/PrivateRoute';
 import ProductListScreen from './screens/ProductListScreen';
 import AdminRoute from './componenets/AdminRoute';
+import ProductEditScreen from './screens/ProductEditScreen';
 
 
 function App() {
@@ -89,6 +90,7 @@ const signoutHandler = () => {
         <main>
           <Route path="/cart/:id?" component={cartScreen}></Route>
           <Route path = "/product/:id" component ={ProductScreen} exact></Route>
+          <Route path = "/product/:id/edit" component ={ProductEditScreen} exact></Route>
           <Route path="/signin" component={SigninScreen} exact></Route>
           <Route path="/register" component={RegisterScreen} exact></Route>
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
