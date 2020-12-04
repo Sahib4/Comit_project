@@ -1,24 +1,32 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { listOrders } from '../actions/orderActions';
+import { listOrders, deleteOrder } from '../actions/orderActions';
 import LoadingBox from '../componenets/LoadingBox';
 import Messagebox from '../componenets/Messagebox';
+import { ORDER_DELETE_RESET } from '../constants/orderConstants';
 
 export default function OrderScreenList(props) {
 
     const orderList = useSelector(state => state.orderList)
     const {loading, error, orders} = orderList;
+    const orderDelete = useSelector(state => state.orderDelete);
+    const {loading: loadingDelete, error: errorDelete, success: successDelete} = orderDelete;
     const dispatch = useDispatch();
     useEffect(() => {
+        dispatch({ type: ORDER_DELETE_RESET });
         dispatch(listOrders());
-    }, [dispatch]);
+    }, [dispatch, successDelete]);
 
     const deleteHandler = (order) => {
-        //todo
+        if (window.confirm('Are you sure to delete?')) {
+            dispatch(deleteOrder(order._id));
+          }
     } 
     return (
         <div>
             <h1>Orders</h1>
+            {loadingDelete && <LoadingBox></LoadingBox>}
+            {errorDelete && <Messagebox variant="danger">{errorDelete}</Messagebox>}
             {loading ? <LoadingBox></LoadingBox> : 
                 error? <Messagebox variant = "danger">{error}</Messagebox> :
 
@@ -46,7 +54,7 @@ export default function OrderScreenList(props) {
                                 <td>{order.isDelivered ? order.deliveredAt.substring(0,10): 'No'}</td>
                                 <td>
                                     <button type = "button" className = "small" onClick = {() => props.history.push(`/order/${order._id}`)}>Details</button>
-                                    <button type="button" className="small" onClick={() => deleteHandler(order)}> Delete </button>
+                                    <button type="button" className="small"  onClick={() => deleteHandler(order)}> Delete </button>
                                 </td>
                             </tr>
                         ))}
