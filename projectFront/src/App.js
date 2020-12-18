@@ -6,6 +6,18 @@ import cartScreen from './screens/cartScreen';
 import SigninScreen from './screens/SigninScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { signout } from './actions/userActions';
+import RegisterScreen from './screens/RegisterScreen';
+import ShippingAddressScreen from './screens/ShippingAddressScreen';
+import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
+import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import PrivateRoute from './componenets/PrivateRoute';
+import ProductListScreen from './screens/ProductListScreen';
+import AdminRoute from './componenets/AdminRoute';
+import ProductEditScreen from './screens/ProductEditScreen';
+import OrderScreenList from './screens/OrderScreenList';
 
 
 function App() {
@@ -39,6 +51,12 @@ const signoutHandler = () => {
                 </Link>
                 <ul className="dropdown-content">
                   <li>
+                    <Link to="/profile">User Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderhistory"> Order History</Link>
+                  </li>
+                  <li>
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
                     </Link>
@@ -48,13 +66,36 @@ const signoutHandler = () => {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
+            { userInfo && userInfo.isAdmin && (
+              <div className = "dropdown">
+                <Link to="#admin">Admin<i className = "fa fa-caret-down"></i></Link>
+                <ul className = "dropdown-content">
+                  <li>
+                    <Link to = "/productlist">Products</Link>
+                  </li>
+                  <li>
+                    <Link to = "/orderlist">Orders</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
             </div>
         </header>
 
         <main>
           <Route path="/cart/:id?" component={cartScreen}></Route>
-          <Route path = "/product/:id" component ={ProductScreen}></Route>
+          <Route path = "/product/:id" component ={ProductScreen} exact></Route>
+          <Route path = "/product/:id/edit" component ={ProductEditScreen} exact></Route>
           <Route path="/signin" component={SigninScreen} exact></Route>
+          <Route path="/register" component={RegisterScreen} exact></Route>
+          <Route path="/shipping" component={ShippingAddressScreen}></Route>
+          <Route path="/payment" component={PaymentMethodScreen}></Route>
+          <Route path="/placeorder" component={PlaceOrderScreen}></Route>
+          <Route path="/order/:id" component={OrderScreen}></Route>
+          <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+          <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
+          <AdminRoute path="/productlist" component={ProductListScreen}></AdminRoute>
+          <AdminRoute path="/orderlist" component={OrderScreenList}></AdminRoute>
           <Route path="/" component = {HomeScreen} exact></Route>
           
         </main>

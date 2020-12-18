@@ -69,7 +69,10 @@ button.block{
 }
 button:hover{
   border: 0.1rem black solid;
+}
 
+button.small {
+  font-size: 1.2rem;
 }
 /* Layout*/
 
@@ -239,8 +242,15 @@ img.large{
   color: #a02020;
   background-color: #ffe0e0;
 }
+.loading {
+  display: block !important;
+}
+.alert-success {
+  color: #20a020;
+  background-color: #eeffe0;
+}
 
-/*Alert*/
+/*form*/
 
 .form {
   max-width: 60rem;
@@ -255,10 +265,12 @@ img.large{
 }
 .form label {
   margin: 1rem 0;
-  display: block;
 }
 .form input{
   border-radius: 2%;
+}
+.pay{
+  display: inline-block;
 }
 
 /* Dropdown */
@@ -280,4 +292,34 @@ img.large{
 }
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+/* Checkout Steps */
+.checkout-steps > div {
+  border-top: 0.3rem #c0c0c0 solid;
+  color: #c0c0c0;
+  flex: 1;
+  padding: 1rem;
+  font-weight: bold;
+}
+.checkout-steps > div.active {
+  border-top-color: #f08000;
+  color: #f08000;
+}
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tbody tr:nth-of-type(odd) {
+  background-color: #f4f4f4;
+}
+.table td,
+.table th {
+  text-align: left;
+  border: 0.1rem solid #e4e4e4;
+  padding: 0.5rem;
+}
+.table button {
+  margin: 0 0.2rem;
 }

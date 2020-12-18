@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routers/userRouter.js';
 import productRouter from './routers/productRouter.js';
+import orderRouter from './routers/orderRouter.js';
+import uplaodRouter from './routers/UplaodRouter.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -17,12 +20,23 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/shop', {
   useCreateIndex: true,
 });
 
+app.use('/api/uploads', uplaodRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
 
-app.get('/', (req, res) => {
-  res.send('Server is ready');
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
+
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+app.use(express.static(path.join(__dirname, '/projectFront/build')));
+app.get('*', (req, res) =>
+res.sendFile(path.join(__dirname, '/projectBackend/build/index.html'))
+);
+
 
 app.use((err,req, res, next) =>{
   res.status(500).send({message: err.message});
